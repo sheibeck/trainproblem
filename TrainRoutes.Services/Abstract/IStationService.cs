@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TrainRoutes.Domain.Models;
 
 namespace TrainRoutes.Services.Abstract
 {
-    interface IStationService
+    public interface IStationService
     {
-        List<string> GetAllStations();
-        bool StationExists(string stationName);
+        List<Station> GetAllStations();
+        bool StationExists(Station station);
     }
 }

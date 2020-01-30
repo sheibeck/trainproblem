@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TrainRoutes.Data.Repositories;
+using TrainRoutes.Domain.Models;
 using TrainRoutes.Domain.Repositories;
 using TrainRoutes.Services.Abstract;
 
@@ -16,14 +17,14 @@ namespace TrainRoutes.Services
             repository = Repository;
         }
 
-        public List<string> GetAllStations()
+        public List<Station> GetAllStations()
         {
             return repository.GetAllStations();
         }
 
-        public bool StationExists(string stationName)
+        public bool StationExists(Station station)
         {
-            return GetAllStations().Any(x => x.Contains(stationName));
+            return GetAllStations().Any(x => x == station);
         }
     }
 }
