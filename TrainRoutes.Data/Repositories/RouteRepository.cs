@@ -7,9 +7,11 @@ using TrainRoutes.Domain.Repositories;
 
 namespace TrainRoutes.Data.Repositories
 {
-    class RouteRepository : IRouteRepository
+    public class RouteRepository : IRouteRepository
     {      
-        public List<Route> GetAllRoutes()
+        //NOTE: Need to drop in a DbContext and hit a real database
+
+        public IEnumerable<Route> GetAllRoutes()
         {
             return new List<Route>() {
                 new Route() { RouteId = 1, Origin = "A", Destination = "B", Distance = 5 },

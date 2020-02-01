@@ -9,15 +9,18 @@ namespace TrainRoutes.Data.Repositories
 {
     class StationRepository : IStationRepository
     {
+
+        //NOTE: Need to drop in a DbContext and hit a real database
+
         public List<Station> GetAllStations()
         {
             return new List<Station>()
             {
-                new Station() { StationName = "A" },
-                new Station() { StationName = "B" },
-                new Station() { StationName = "C" },
-                new Station() { StationName = "D" },
-                new Station() { StationName = "E" },
+                new Station("A"),
+                new Station("B"),
+                new Station("C"),
+                new Station("D"),
+                new Station("E")
             };
         }
     }

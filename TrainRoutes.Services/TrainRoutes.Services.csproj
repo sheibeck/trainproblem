@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="QuickGraph.NETStandard" Version="3.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\TrainRoutes.Domain\TrainRoutes.Domain.csproj" />
     <ProjectReference Include="..\TrainRoutes.Data\TrainRoutes.Data.csproj" />
   </ItemGroup>
