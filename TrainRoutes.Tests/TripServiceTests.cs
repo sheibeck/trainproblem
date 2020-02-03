@@ -160,7 +160,10 @@ namespace TrainRoutes.Tests
             };
             var actual = tripService.GetRouteFromString("ABC");
 
-            Assert.Equal(expected, actual);
+            Assert.Equal(expected[0].Origin, actual[0].Origin);
+            Assert.Equal(expected[0].Destination, actual[0].Destination);
+            Assert.Equal(expected[1].Origin, actual[1].Origin);
+            Assert.Equal(expected[1].Destination, actual[1].Destination);
         }
     }
 
