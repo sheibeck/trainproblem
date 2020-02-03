@@ -3,3 +3,7 @@
 input {
     @extend .form-control
 }
+
+#results {
+    white-space: pre-line;
+}

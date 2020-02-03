@@ -1,29 +1,43 @@
 ﻿@page "/TripDistance"
 @inject ITripService tripService;
+@inject IStationService stationService;
 
 <h5>Calculate a trip distance</h5>
 
 <div class="form-group">
     <label for="tripDistance">Enter your route:</label>
     <input id="tripDistance" @bind="@Trip" />
-    <small id="tripDistanceHelp" class="form-text text-muted">Enter your route. Example: ABC</small>
-</div>    
-<div id="results mb-2">
+    <small id="tripDistanceHelp" class="form-text text-muted">Enter <b>All</b> stops along your route. Example: ABC</small>
+</div>
+<div id="results" class="mb-2">
     @Message
 </div>
-<button type="button" class="btn btn-primary" @onclick="GetTripDistance">Submit</button>
+<button type="button" class="btn btn-primary" @onclick="@(async() => await GetTripDistance())">Submit</button>
 
 @code {
     private string Trip { get; set; } = "";
     private string Message { get; set; }
 
-    private void GetTripDistance()
+    private async Task GetTripDistance()
     {
-        var distance = 0;
         try
-        {
+        {           
+            if (Trip.Length < 2)
+            {
+                throw new Exception("You must enter at least 2 stations.");
+            }
+
+            foreach (var c in Trip)
+            {
+                var station = new Station(c.ToString());
+                if (!stationService.StationExists(station))
+                {
+                    throw new Exception($"Station {c} does not exist.");
+                }
+            }
+
             var route = tripService.GetRouteFromString(Trip);
-            distance = tripService.GetTripDistance(route);
+            var distance = await Task.Run(() => tripService.GetTripDistance(route));
 
             Message = $"The distance of your trip is: {distance}";
         }

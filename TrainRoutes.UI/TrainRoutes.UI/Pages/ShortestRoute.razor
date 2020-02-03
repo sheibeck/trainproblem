@@ -14,17 +14,17 @@
     <input id="tripDestination" @bind="@Destination" />
     <small id="tripDestinationHelp" class="form-text text-muted">Stations are A-F</small>
 </div>
-<div id="results mb-2">
+<div id="results" class="mb-2">
     @Message
 </div>
-<button type="button" class="btn btn-primary" @onclick="GetTrip">Submit</button>
+<button type="button" class="btn btn-primary" @onclick="@(async () => await GetTrip())">Submit</button>
 
 @code {
     private string Origin { get; set; } = "";
     private string Destination { get; set; } = "";
     private string Message { get; set; }
 
-    private void GetTrip()
+    private async Task GetTrip()
     {     
         try
         {
@@ -33,16 +33,16 @@
             var validation = "";
 
             if (!stationService.StationExists(originStation)) {
-                validation += "Depature station does not exist!";
+                validation += "Depature station does not exist! \n";
             }
 
             if (!stationService.StationExists(destStation))
             {
-                validation += "Destination station does not exist!";
+                validation += "Destination station does not exist! \n";
             }
 
             if (validation.Length == 0) {
-                var route = tripService.GetTripWithShortestDistance(originStation, destStation);
+                var route = await Task.Run(()=> tripService.GetTripWithShortestDistance(originStation, destStation));
                 Message = $"Your trip is a distance of {route.Distance} and will travel through the following stations: {route.DisplayRoute}";
             } 
             else

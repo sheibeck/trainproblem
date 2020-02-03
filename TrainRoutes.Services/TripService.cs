@@ -240,9 +240,7 @@ namespace TrainRoutes.Services
                                     && !tripsToAdd.Any(x => x.DisplayRoute == newTrip.DisplayRoute))
                                 {
                                     tripsToAdd.Add(newTrip);
-                                }
-
-                                tripsToAdd.Add(newTrip);
+                                }                                
                             }
                         }
                     }                  

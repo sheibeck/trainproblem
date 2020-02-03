@@ -1,0 +1,104 @@
+﻿@page "/TripByStops"
+@inject ITripService tripService
+@inject IStationService stationService
+
+<h5>Take a trip by number of stops</h5>
+<div class="form-group">
+    <label for="tripOrigin">Enter your departure station:</label>
+    <input id="tripOrigin" @bind="@Origin" />
+    <small id="tripOriginHelp" class="form-text text-muted">Stations are A-F</small>
+</div>
+<div class="form-group">
+    <label for="tripDestination">Enter your destination station:</label>
+    <input id="tripDestination" @bind="@Destination" />
+    <small id="tripDestinationHelp" class="form-text text-muted">Stations are A-F</small>
+</div>
+<div class="form-group">
+    <label for="numberOfStops">Enter the number of stops:</label>
+    <input id="numberOfStops" @bind="@NumStops" />
+    <small id="numberOfStops" class="form-text text-muted">Enter an integer</small>
+</div>
+<div class="form-check form-check-inline">    
+    <input class="form-check-input" type="radio" name="stopType" id="stopTypeExact" value="exact" @onchange="SelectionChanged" checked=@(StopType.Equals("exact",StringComparison.OrdinalIgnoreCase)) >
+    <label class="form-check-label" for="stopTypeMax">Exact number of stops</label>
+</div>
+<div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="stopType" id="stopTypeMax" value="max" @onchange="SelectionChanged" checked=@(StopType.Equals("max",StringComparison.OrdinalIgnoreCase))>
+    <label class="form-check-label" for="stopTypeExact">Any number of stops up to number of stops</label>
+</div>
+<div id="results" class="mb-2">
+    @Message
+</div>
+<button type="button" class="btn btn-primary" @onclick="@(async () => await GetTrips())">Submit</button>
+
+@code {
+    private string Origin { get; set; } = "";
+    private string Destination { get; set; } = "";
+    private string NumStops { get; set; } = "";
+    private string StopType { get; set; } = "exact";
+    private MarkupString Message { get; set; } = (MarkupString)"";
+    
+    void SelectionChanged(ChangeEventArgs args)
+    {
+        StopType = args.Value.ToString();
+    }
+
+    private async Task GetTrips()
+    {
+        try
+        {
+            var originStation = new Domain.Models.Station(this.Origin);
+            var destStation = new Domain.Models.Station(this.Destination);
+            var validation = "";
+
+            int numStops;
+            if (!int.TryParse(this.NumStops, out numStops))
+            {
+                validation += "Number of stops must be an integer!<br/>";
+            }
+
+            if (!stationService.StationExists(originStation))
+            {
+                validation += "Depature station does not exist!<br/>";
+            }
+
+            if (!stationService.StationExists(destStation))
+            {
+                validation += "Destination station does not exist!<br/>";
+            }
+
+            if (validation.Length == 0)
+            {
+
+                this.Message = (MarkupString)"Searching for trips...";
+
+                var trips = new List<Trip>();
+                if (StopType == "exact")
+                {
+                    trips = await Task.Run(() => tripService.GetTripsWithNumberOfStops(originStation, destStation, numStops));
+                }
+                else
+                {
+                    trips = await Task.Run(() => tripService.GetTripsWithMaxStops(originStation, destStation, numStops));
+                }
+
+                var msg = $"<p>Here are the following trips from {originStation.StationName} to {destStation.StationName} {(StopType == "exact" ? " with exactly " : " with up to ")} {numStops} stops:</p><ul>";
+                foreach (var r in trips)
+                {
+                    msg += $"<li>{r.DisplayRoute}</li>";
+                }
+                msg += "</ul>";
+
+                this.Message = (MarkupString)msg;
+            }
+            else
+            {
+                throw new Exception(validation);
+            }
+        }
+        catch (Exception ex)
+        {
+            this.Message = (MarkupString)ex.Message;
+        }
+    }
+}

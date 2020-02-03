@@ -1,0 +1,79 @@
+﻿@page "/AvailableRoutes"
+@inject ITripService tripService
+@inject IStationService stationService
+
+<h5>Find available routes to a destination</h5>
+<div class="form-group">
+    <label for="tripOrigin">Enter your departure station:</label>
+    <input id="tripOrigin" @bind="@Origin" />
+    <small id="tripOriginHelp" class="form-text text-muted">Stations are A-F</small>
+</div>
+<div class="form-group">
+    <label for="tripDestination">Enter your destination station:</label>
+    <input id="tripDestination" @bind="@Destination" />
+    <small id="tripDestinationHelp" class="form-text text-muted">Stations are A-F</small>
+</div>
+<div class="form-group">
+    <label for="maxDistance">Enter the maximum distance of travel:</label>
+    <input id="maxDistance" @bind="@MaxDistance" />
+    <small id="maxDistanceHelp" class="form-text text-muted">Enter an integer</small>
+</div>
+<div id="results" class="mb-2">
+    @Message
+</div>
+<button type="button" class="btn btn-primary" @onclick="@(async () => await GetTrips())">Submit</button>
+
+@code {
+    private string Origin { get; set; } = "";
+    private string Destination { get; set; } = "";
+    private string MaxDistance { get; set; } = "";
+    private MarkupString Message { get; set;} = (MarkupString)""; 
+    
+    private async Task GetTrips() 
+    {
+        try
+        {
+            var originStation = new Domain.Models.Station(this.Origin);
+            var destStation = new Domain.Models.Station(this.Destination);
+            var validation = "";
+
+            int maxDistance;
+            if (!int.TryParse(this.MaxDistance, out maxDistance))
+            {
+                validation += "Maximum distance must be an integer!<br/>";
+            }
+
+            if (!stationService.StationExists(originStation)) {
+                validation += "Depature station does not exist!<br/>";
+            }
+
+            if (!stationService.StationExists(destStation))
+            {
+                validation += "Destination station does not exist!<br/>";
+            }
+
+            if (validation.Length == 0) {
+
+                this.Message = (MarkupString)"Searching for trips...";
+                var trips = await Task.Run(()=> tripService.GetTripsWithDistanceLessThan(originStation, destStation, maxDistance));                
+
+                var msg = $"<p>Here are the following trips from {originStation.StationName} to {destStation.StationName} with distance less than {maxDistance}:</p><ul>";
+                foreach(var r in trips)
+                {
+                    msg += $"<li>{r.DisplayRoute}</li>";
+                }
+                msg += "</ul>";
+                                
+                this.Message = (MarkupString)msg;                
+            }
+            else
+            {
+                throw new Exception(validation);
+            }
+        }
+        catch (Exception ex)
+        {
+            this.Message = (MarkupString)ex.Message;
+        }
+    }
+}
