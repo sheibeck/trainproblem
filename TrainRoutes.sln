@@ -5,12 +5,11 @@ VisualStudioVersion = 16.0.29509.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{55236B88-05B4-477A-BD5F-4BC0866D7980}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainRoutes.Tests", "TrainRoutes.Tests\TrainRoutes.Tests.csproj", "{46B3CCC4-3182-46E2-A52A-F1588F1C8CC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainRoutes.Tests", "TrainRoutes.Tests\TrainRoutes.Tests.csproj", "{46B3CCC4-3182-46E2-A52A-F1588F1C8CC6}"
 	ProjectSection(ProjectDependencies) = postProject
 		{3DC02E29-FEE3-40F5-9AA4-3CE70FEAE1AB} = {3DC02E29-FEE3-40F5-9AA4-3CE70FEAE1AB}
 		{C2D44437-694D-4697-B078-877E62C23453} = {C2D44437-694D-4697-B078-877E62C23453}
 		{FEDB5CAF-0595-4F84-80F2-24A0DFCF2870} = {FEDB5CAF-0595-4F84-80F2-24A0DFCF2870}
-		{18669ACD-6629-4DDE-A23A-C9C55B7D2D52} = {18669ACD-6629-4DDE-A23A-C9C55B7D2D52}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainRoutes.UI", "TrainRoutes.UI\TrainRoutes.UI\TrainRoutes.UI.csproj", "{FEDB5CAF-0595-4F84-80F2-24A0DFCF2870}"
@@ -18,18 +17,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainRoutes.UI", "TrainRout
 		{3DC02E29-FEE3-40F5-9AA4-3CE70FEAE1AB} = {3DC02E29-FEE3-40F5-9AA4-3CE70FEAE1AB}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainRoutes.Services", "TrainRoutes.Services\TrainRoutes.Services.csproj", "{3DC02E29-FEE3-40F5-9AA4-3CE70FEAE1AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainRoutes.Services", "TrainRoutes.Services\TrainRoutes.Services.csproj", "{3DC02E29-FEE3-40F5-9AA4-3CE70FEAE1AB}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C2D44437-694D-4697-B078-877E62C23453} = {C2D44437-694D-4697-B078-877E62C23453}
-		{18669ACD-6629-4DDE-A23A-C9C55B7D2D52} = {18669ACD-6629-4DDE-A23A-C9C55B7D2D52}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainRoutes.Data", "TrainRoutes.Data\TrainRoutes.Data.csproj", "{C2D44437-694D-4697-B078-877E62C23453}"
-	ProjectSection(ProjectDependencies) = postProject
-		{18669ACD-6629-4DDE-A23A-C9C55B7D2D52} = {18669ACD-6629-4DDE-A23A-C9C55B7D2D52}
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainRoutes.Data", "TrainRoutes.Data\TrainRoutes.Data.csproj", "{C2D44437-694D-4697-B078-877E62C23453}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainRoutes.Domain", "..\TrainRoutes.Domain\TrainRoutes.Domain.csproj", "{18669ACD-6629-4DDE-A23A-C9C55B7D2D52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainRoutes.Domain", "TrainRoutes.Domain\TrainRoutes.Domain.csproj", "{DE06AD61-11D8-430E-9344-89B3965E5077}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,10 +48,10 @@ Global
 		{C2D44437-694D-4697-B078-877E62C23453}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2D44437-694D-4697-B078-877E62C23453}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2D44437-694D-4697-B078-877E62C23453}.Release|Any CPU.Build.0 = Release|Any CPU
-		{18669ACD-6629-4DDE-A23A-C9C55B7D2D52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{18669ACD-6629-4DDE-A23A-C9C55B7D2D52}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{18669ACD-6629-4DDE-A23A-C9C55B7D2D52}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{18669ACD-6629-4DDE-A23A-C9C55B7D2D52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE06AD61-11D8-430E-9344-89B3965E5077}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE06AD61-11D8-430E-9344-89B3965E5077}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE06AD61-11D8-430E-9344-89B3965E5077}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE06AD61-11D8-430E-9344-89B3965E5077}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -14,8 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\TrainRoutes.Domain\TrainRoutes.Domain.csproj" />
     <ProjectReference Include="..\TrainRoutes.Data\TrainRoutes.Data.csproj" />
+    <ProjectReference Include="..\TrainRoutes.Domain\TrainRoutes.Domain.csproj" />
   </ItemGroup>
 
 </Project>

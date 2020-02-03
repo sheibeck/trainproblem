@@ -28,7 +28,24 @@ namespace TrainRoutes.Tests
 
             Assert.IsType<List<Station>>(result);
             Assert.Equal(expected, actual);
-        }        
+        }
+
+        [Fact]
+        public void StationExists_Should_Return_True_IfExists()
+        {
+            var station = new Station("A");
+            var actual = stationService.StationExists(station);            
+                        
+            Assert.True(actual);
+        }
+        [Fact]
+        public void StationExists_Should_Return_False_IfNotExists()
+        {
+            var station = new Station("Z");
+            var actual = stationService.StationExists(station);
+
+            Assert.False(actual);
+        }
     }
 
     class StationServiceTestsFixture
