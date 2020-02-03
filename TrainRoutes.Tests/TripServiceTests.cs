@@ -137,6 +137,19 @@ namespace TrainRoutes.Tests
 
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public void DisplayTripRoute_Should_Output_List_of_Stations()
+        {
+            var origin = new Station("A");
+            var destination = new Station("C");
+            var trip = tripService.GetTripWithShortestDistance(origin, destination);
+            
+            var expected = "ABC";
+            var actual = trip.DisplayRoute;
+
+            Assert.Equal(expected, actual);
+        }
     }
 
     class TrainRoutesTestsFixture
