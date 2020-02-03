@@ -1,13 +1,10 @@
 ﻿using QuickGraph;
 using QuickGraph.Algorithms;
-using QuickGraph.Algorithms.Observers;
 using QuickGraph.Algorithms.RankedShortestPath;
-using QuickGraph.Algorithms.Search;
-using QuickGraph.Algorithms.ShortestPath;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
+using System.Threading.Tasks;
 using TrainRoutes.Domain.Models;
 using TrainRoutes.Domain.Repositories;
 using TrainRoutes.Services.Abstract;
@@ -160,7 +157,27 @@ namespace TrainRoutes.Services
             return routeRepository.GetRoute(new Station(edge.Source), new Station(edge.Target));
         }
 
-        #endregion Helpers
+        public List<Route> GetRouteFromString(string trip)
+        {
+            var route = new List<Route>();
+            if (trip.Length > 1)
+            {                
+                for (var c = 0; c < trip.Length-1; c++)
+                {
+                    var r = new Route();
+                    r.Origin = trip[c].ToString().ToUpper();
+                    r.Destination = trip[c + 1].ToString().ToUpper();
+                    route.Add(r);
+                }
+            }
+            else
+            {
+                throw ERR_NO_ROUTE;
+            }
+            return route;
+        }
+
+#endregion Helpers
 
 
         public int GetTripDistance(List<Route> routes)

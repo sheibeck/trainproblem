@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using TrainRoutes.Services;
+using TrainRoutes.Services.Abstract;
 
 namespace TrainRoutes.UI
 {
@@ -21,7 +23,10 @@ namespace TrainRoutes.UI
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            //services.AddScoped<WeatherForecastService>();
+
+            ServiceDependencies.AddServiceDependencies(services);
+            services.AddSingleton<IStationService, StationService>();
+            services.AddSingleton<ITripService, TripService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

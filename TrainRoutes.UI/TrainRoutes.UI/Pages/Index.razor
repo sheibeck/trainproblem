@@ -1,34 +1,24 @@
 ﻿@page "/"
-@using Blazor.Extensions.Canvas.Canvas2D;
-@using Blazor.Extensions;
+@inject ITripService tripService;
 
-<h1>Welcome to Kiwiland Railroad</h1>
-<h5>Choose your starting location.</h5>
+<h5>What would you like to do?</h5>
 
-<BECanvas Width="1024" Height="768" @ref="canvas"></BECanvas>
-`
+<div>
+    <a href="TripDistance">Calculate a trip distance</a>
+</div>
+<div>
+    <a href="TripByStops">Take a trip by number of stops</a>
+</div>
+<div>
+    <a href="TripByDistance">Take a trip by distance</a>
+</div>
+<div>
+    <a href="FindRoutes">Find available routes to a destination</a>
+</div>
+<div>
+    <a href="ShortestRoute">Take the shortest route to your destination</a>
+</div>
+
+
 @code {
-    private Canvas2DContext context;
-
-    protected BECanvasComponent canvas;
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        this.context = await this.canvas.CreateCanvas2DAsync();
-       
-        var centerX = canvas.Width / 2;
-        var centerY = canvas.Height / 2;
-        var radius = 70;
-
-        await this.context.BeginPathAsync();
-        await this.context.ArcAsync(centerX, centerY, radius, 0, 2 * Math.PI, false);
-        await this.context.SetFillStyleAsync("green");
-        await this.context.FillAsync();
-        await this.context.SetLineWidthAsync(5);
-        await this.context.SetStrokeStyleAsync("#003300");
-        await this.context.StrokeAsync();
-        
-        await this.context.SetFontAsync("48px serif");
-        await this.context.StrokeTextAsync("Hello Blazor!!!", 10, 100);
-    }
 }

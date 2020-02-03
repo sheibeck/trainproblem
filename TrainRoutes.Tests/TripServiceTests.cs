@@ -150,6 +150,18 @@ namespace TrainRoutes.Tests
 
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public void GetRouteFromString_Should_Output_List_of_Routes()
+        {
+            var expected = new List<Route>() {
+                new Route() { Origin = "A", Destination = "B" },
+                new Route() { Origin = "B", Destination = "C" },              
+            };
+            var actual = tripService.GetRouteFromString("ABC");
+
+            Assert.Equal(expected, actual);
+        }
     }
 
     class TrainRoutesTestsFixture

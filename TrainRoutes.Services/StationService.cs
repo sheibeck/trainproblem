@@ -24,7 +24,7 @@ namespace TrainRoutes.Services
 
         public bool StationExists(Station station)
         {
-            return GetAllStations().Any(x => x == station);
+            return GetAllStations().Any(x => x.StationName == station.StationName);
         }
     }
 }

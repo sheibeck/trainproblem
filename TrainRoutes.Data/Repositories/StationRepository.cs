@@ -7,7 +7,7 @@ using TrainRoutes.Domain.Repositories;
 
 namespace TrainRoutes.Data.Repositories
 {
-    class StationRepository : IStationRepository
+    public class StationRepository : IStationRepository
     {
 
         //NOTE: Need to drop in a DbContext and hit a real database
